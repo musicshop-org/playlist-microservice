@@ -1,6 +1,7 @@
 package fhv.musicshop;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import lombok.Getter;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
@@ -8,10 +9,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Entity
+@Getter
 public class Playlist extends PanacheEntity {
 
-    public String col1;
-    public String col2;
+    private String ownerId;
+    @ManyToMany
+    private List<Song> songs;
 
     public Playlist(String ownerId) {
         this.ownerId = ownerId;
