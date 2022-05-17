@@ -17,6 +17,7 @@ public class RestController {
         return "Welcome to the playlist-microservice :)";
     }
 
+    @Transactional
     @GET
     @Path("/playlist/{ownerId}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -25,6 +26,7 @@ public class RestController {
         return playlistService.getPlaylistByOwnerId(ownerId);
     }
 
+    @Transactional
     @POST
     @Path("/playlist/addSongs")
     @Produces(MediaType.TEXT_PLAIN)
@@ -35,11 +37,11 @@ public class RestController {
         return true;
     }
 
+    @Transactional
     @POST
     @Path("/playlist/createPlaylist")
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.APPLICATION_JSON)
-    @Transactional
     public boolean createPlaylistForOwnerId(String ownerId) {
         PlaylistService playlistService = new PlaylistServiceImpl();
         playlistService.createPlaylist(ownerId);

@@ -6,16 +6,18 @@ import java.util.Set;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 
 @Entity
 public class Song extends PanacheEntity {
 
     private String genre;
-    @ManyToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Artist> artists;
-    @ManyToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private Set<Album> inAlbum;
     private String title;
     private LocalDate releaseDate;
@@ -31,15 +33,23 @@ public class Song extends PanacheEntity {
         this.inAlbum = inAlbum;
     }
 
-    @Override
-    public String toString() {
-        return "Song{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", releaseDate=" + releaseDate +
-                ", genre='" + genre + '\'' +
-                ", artists=" + artists +
-                ", inAlbum=" + inAlbum +
-                '}';
+    public String getGenre() {
+        return genre;
+    }
+
+    public List<Artist> getArtists() {
+        return artists;
+    }
+
+    public Set<Album> getInAlbum() {
+        return inAlbum;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public LocalDate getReleaseDate() {
+        return releaseDate;
     }
 }
