@@ -1,5 +1,8 @@
 package fhv.musicshop;
 
+import fhv.musicshop.domain.Playlist;
+import fhv.musicshop.domain.Song;
+
 import java.util.List;
 
 public interface PlaylistService {

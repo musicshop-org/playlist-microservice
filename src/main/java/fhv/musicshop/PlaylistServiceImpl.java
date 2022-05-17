@@ -1,8 +1,8 @@
 package fhv.musicshop;
 
-import io.quarkus.hibernate.orm.panache.Panache;
+import fhv.musicshop.domain.Playlist;
+import fhv.musicshop.domain.Song;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 public class PlaylistServiceImpl implements PlaylistService{
@@ -17,16 +17,13 @@ public class PlaylistServiceImpl implements PlaylistService{
 
     @Override
     public Playlist getPlaylistByOwnerId(String ownerId) {
-        Playlist result = Playlist.findByOwnerId(ownerId);
-        //result.getSongs().get(1).ge
-        return result;
+        return Playlist.findByOwnerId(ownerId);
     }
 
     @Override
     public void createPlaylist(String ownerId) {
         Playlist playlist = new Playlist(ownerId);
         playlist.persist();
-
     }
 
 }

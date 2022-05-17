@@ -1,5 +1,6 @@
-package fhv.musicshop;
+package fhv.musicshop.domain;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
@@ -15,12 +16,16 @@ import javax.persistence.OneToMany;
 public class Song extends PanacheEntity {
 
     private String genre;
-    @OneToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Artist> artists;
-    @OneToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Album> inAlbum;
     private String title;
     private LocalDate releaseDate;
+
+    private BigDecimal price;
+    private int stock;
+    private MediumType mediumType;
 
     public Song() {
     }
@@ -31,6 +36,9 @@ public class Song extends PanacheEntity {
         this.title = title;
         this.releaseDate = releaseDate;
         this.inAlbum = inAlbum;
+        this.mediumType = MediumType.DIGITAL;
+        this.stock = -1;
+        this.price = BigDecimal.TEN;
     }
 
     public String getGenre() {
@@ -51,5 +59,17 @@ public class Song extends PanacheEntity {
 
     public LocalDate getReleaseDate() {
         return releaseDate;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public MediumType getMediumType() {
+        return mediumType;
     }
 }

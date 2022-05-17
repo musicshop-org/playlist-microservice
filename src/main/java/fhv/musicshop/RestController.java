@@ -1,12 +1,12 @@
 package fhv.musicshop;
 
+import fhv.musicshop.domain.Playlist;
+import fhv.musicshop.domain.Song;
+
 import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
-import java.util.UUID;
 
 @Path("playlist-api")
 public class RestController {
