@@ -46,16 +46,4 @@ public class RestController {
         return true;
     }
 
-    @GET
-    @Path("/playlist/{ownerId}")
-    @Produces(MediaType.TEXT_PLAIN)
-    @Transactional
-    public boolean test(){
-        Artist artist = new Artist("TestArtist");
-        Album album = new Album("testAlbum", LocalDate.now(), UUID.randomUUID(), "testLabel");
-        Song song = new Song("Testsong", LocalDate.now(), "testGenre", List.of(artist), Set.of(album));
-
-        song.persist();
-        return true;
-    }
 }
