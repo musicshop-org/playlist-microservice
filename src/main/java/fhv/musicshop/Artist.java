@@ -1,14 +1,9 @@
 package fhv.musicshop;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
-import lombok.Getter;
-import org.jboss.resteasy.reactive.RestStreamElementType;
 
 import javax.persistence.Entity;
-import java.io.Serializable;
-import java.lang.annotation.Retention;
 
-@Getter
 @Entity
 public class Artist extends PanacheEntity {
 
@@ -21,4 +16,7 @@ public class Artist extends PanacheEntity {
         this.name = name;
     }
 
+    public String getName() {
+        return name;
+    }
 }

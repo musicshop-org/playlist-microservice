@@ -1,17 +1,12 @@
 package fhv.musicshop;
 
-import lombok.Getter;
-
-import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 
 
 @Entity
@@ -21,18 +16,19 @@ public class Song extends PanacheEntity {
     @ManyToMany
     private List<Artist> artists;
     @ManyToMany
-    private final Set<Album> inAlbum = new HashSet<>();
+    private Set<Album> inAlbum;
     private String title;
     private LocalDate releaseDate;
 
     public Song() {
     }
 
-    public Song(String title, LocalDate releaseDate, String genre, List<Artist> artists) {
+    public Song(String title, LocalDate releaseDate, String genre, List<Artist> artists, Set<Album> inAlbum) {
         this.genre = genre;
         this.artists = artists;
         this.title = title;
         this.releaseDate = releaseDate;
+        this.inAlbum = inAlbum;
     }
 
     @Override

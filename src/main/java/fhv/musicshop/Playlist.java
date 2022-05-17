@@ -1,15 +1,14 @@
 package fhv.musicshop;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
-import lombok.Getter;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.transaction.Transactional;
 import java.util.LinkedList;
 import java.util.List;
 
 @Entity
-@Getter
 public class Playlist extends PanacheEntity {
 
     private String ownerId;
@@ -22,14 +21,22 @@ public class Playlist extends PanacheEntity {
     }
 
     public Playlist() {
-
     }
 
+    @Transactional
     public static Playlist findByOwnerId(String ownerId){
         return find("ownerId",ownerId).firstResult();
     }
 
     public void addSong(Song song){
         songs.add(song);
+    }
+
+    public String getOwnerId() {
+        return ownerId;
+    }
+
+    public List<Song> getSongs() {
+        return songs;
     }
 }
