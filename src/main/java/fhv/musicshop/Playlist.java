@@ -25,7 +25,7 @@ public class Playlist extends PanacheEntity {
 
     @Transactional
     public static Playlist findByOwnerId(String ownerId){
-        return find("ownerId",ownerId).firstResult();
+        return find("ownerId", ownerId).firstResult();;
     }
 
     public void addSong(Song song){

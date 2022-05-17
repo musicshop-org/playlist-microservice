@@ -27,8 +27,8 @@ public class RestController {
 
     @POST
     @Path("/playlist/addSongs")
-    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.APPLICATION_JSON)
     public boolean addSongsToPlaylist(List<Song> songs, @HeaderParam("ownerId") String ownerId){
         PlaylistService playlistService = new PlaylistServiceImpl();
         playlistService.addSongsToPlaylist(ownerId, songs);
