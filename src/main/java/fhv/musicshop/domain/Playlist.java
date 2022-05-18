@@ -6,6 +6,7 @@ import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import javax.persistence.*;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 public class Playlist extends PanacheEntityBase {
@@ -23,8 +24,8 @@ public class Playlist extends PanacheEntityBase {
     public Playlist() {
     }
 
-    public static Playlist findByOwnerId(String ownerId){
-        return find("ownerId", ownerId).firstResult();
+    public static Optional<Playlist> findByOwnerId(String ownerId){
+        return find("ownerId", ownerId).firstResultOptional();
     }
 
     public void addSong(Song song){

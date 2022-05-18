@@ -4,26 +4,29 @@ import fhv.musicshop.domain.Playlist;
 import fhv.musicshop.domain.Song;
 
 import java.util.List;
+import java.util.Optional;
 
 public class PlaylistServiceImpl implements PlaylistService{
 
     @Override
     public void addSongsToPlaylist(String ownerId, List<Song> songs) {
-        Playlist playlist = Playlist.findByOwnerId(ownerId);
+        Optional<Playlist> playlistOpt = Playlist.findByOwnerId(ownerId);
+        Playlist playlist;
+        if (playlistOpt.isEmpty()){
+            playlist = new Playlist(ownerId);
+            playlist.persist();
+        }else{
+            playlist = playlistOpt.get();
+        }
+
         for (Song s: songs) {
             playlist.addSong(s);
         }
     }
 
     @Override
-    public Playlist getPlaylistByOwnerId(String ownerId) {
+    public Optional<Playlist> getPlaylistByOwnerId(String ownerId) {
         return Playlist.findByOwnerId(ownerId);
-    }
-
-    @Override
-    public void createPlaylist(String ownerId) {
-        Playlist playlist = new Playlist(ownerId);
-        playlist.persist();
     }
 
 }

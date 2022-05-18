@@ -23,7 +23,7 @@ public class RestController {
     @Produces(MediaType.APPLICATION_JSON)
     public Playlist getPlaylistByOwnerId(@PathParam("ownerId") String ownerId) {
         PlaylistService playlistService = new PlaylistServiceImpl();
-        return playlistService.getPlaylistByOwnerId(ownerId);
+        return playlistService.getPlaylistByOwnerId(ownerId).get();
     }
 
     @Transactional
