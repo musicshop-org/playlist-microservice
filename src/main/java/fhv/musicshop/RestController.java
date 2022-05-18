@@ -37,15 +37,4 @@ public class RestController {
         return true;
     }
 
-    @Transactional
-    @POST
-    @Path("/playlist/createPlaylist")
-    @Produces(MediaType.TEXT_PLAIN)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public boolean createPlaylistForOwnerId(String ownerId) {
-        PlaylistService playlistService = new PlaylistServiceImpl();
-        playlistService.createPlaylist(ownerId);
-        return true;
-    }
-
 }
