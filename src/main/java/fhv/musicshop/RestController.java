@@ -107,9 +107,8 @@ public class RestController extends Application {
     }
 
     @Transactional
-    @POST
-    @Path("/playlist/addSongs")
-    @Consumes(MediaType.APPLICATION_JSON)
+    @GET
+    @Path("/song/owned/{songId}")
     @APIResponses(
             value = {
                     @APIResponse(
