@@ -5,16 +5,16 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 
 @Entity
-public class Song extends PanacheEntity {
+public class Song extends PanacheEntityBase {
 
+    @Id
+    private long id;
     private String genre;
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Artist> artists;
@@ -25,6 +25,7 @@ public class Song extends PanacheEntity {
 
     private BigDecimal price;
     private int stock;
+    @Enumerated(EnumType.STRING)
     private MediumType mediumType;
 
     public Song() {
@@ -71,5 +72,9 @@ public class Song extends PanacheEntity {
 
     public MediumType getMediumType() {
         return mediumType;
+    }
+
+    public long getId() {
+        return id;
     }
 }

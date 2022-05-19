@@ -1,5 +1,7 @@
 package fhv.musicshop;
 
+import fhv.musicshop.domain.Album;
+import fhv.musicshop.domain.Artist;
 import fhv.musicshop.domain.Playlist;
 import fhv.musicshop.domain.Song;
 
@@ -20,6 +22,22 @@ public class PlaylistServiceImpl implements PlaylistService{
         }
 
         for (Song s: songs) {
+            for (Artist artist: s.getArtists()) {
+                Optional<Artist> existingArtist = Artist.find("name", artist.getName()).firstResultOptional();
+                if(existingArtist.isEmpty()){
+                    artist.persist();
+                }
+            }
+            for (Album album: s.getInAlbum()) {
+                Optional<Album> existingAlbum = Album.find("albumId", album.getAlbumId()).firstResultOptional();
+                if(existingAlbum.isEmpty()){
+                    album.persist();
+                }
+            }
+            Optional<Song> existingSong = Song.find("id",s.getId()).firstResultOptional();
+            if (existingSong.isEmpty()){
+                s.persist();
+            }
             playlist.addSong(s);
         }
     }
