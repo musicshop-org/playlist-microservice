@@ -1,27 +1,27 @@
 package fhv.musicshop.domain;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 
 @Entity
-public class Song extends PanacheEntity {
+public class Song extends PanacheEntityBase {
 
     private String genre;
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Artist> artists;
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Album> inAlbum;
-    private String title;
-    private LocalDate releaseDate;
+
+    @EmbeddedId
+    private SongId songId;
 
     private BigDecimal price;
     private int stock;
@@ -33,12 +33,11 @@ public class Song extends PanacheEntity {
     public Song(String title, LocalDate releaseDate, String genre, List<Artist> artists, Set<Album> inAlbum) {
         this.genre = genre;
         this.artists = artists;
-        this.title = title;
-        this.releaseDate = releaseDate;
         this.inAlbum = inAlbum;
         this.mediumType = MediumType.DIGITAL;
         this.stock = -1;
         this.price = BigDecimal.TEN;
+        this.songId = new SongId(title, releaseDate);
     }
 
     public String getGenre() {
@@ -54,11 +53,11 @@ public class Song extends PanacheEntity {
     }
 
     public String getTitle() {
-        return title;
+        return songId.getTitle();
     }
 
     public LocalDate getReleaseDate() {
-        return releaseDate;
+        return songId.getReleaseDate();
     }
 
     public BigDecimal getPrice() {
