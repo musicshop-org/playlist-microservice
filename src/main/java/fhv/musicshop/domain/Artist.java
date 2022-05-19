@@ -1,15 +1,12 @@
 package fhv.musicshop.domain;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
 
 @Entity
-public class Artist extends PanacheEntityBase {
+public class Artist extends PanacheEntity {
 
-    @Id
     private String name;
 
     protected Artist() {

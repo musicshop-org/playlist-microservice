@@ -1,10 +1,8 @@
 package fhv.musicshop.domain;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -13,7 +11,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @Entity
-public class Album extends PanacheEntityBase {
+public class Album extends PanacheEntity {
 
     private String title;
     private String imageUrl;
@@ -21,7 +19,6 @@ public class Album extends PanacheEntityBase {
     private int stock;
     private MediumType mediumType;
     private String releaseDate;
-    @Id
     private UUID albumId;
     private String label;
     private int quantityToAddToCart;
