@@ -106,4 +106,51 @@ public class RestController extends Application {
                 .build();
     }
 
+    @Transactional
+    @POST
+    @Path("/playlist/addSongs")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @APIResponses(
+            value = {
+                    @APIResponse(
+                            responseCode = "200",
+                            description = "Success",
+                            content = {
+                                    @Content(
+                                            mediaType = MediaType.APPLICATION_JSON,
+                                            schema = @Schema(implementation = Boolean.class)
+                                    )
+                            }
+                    ),
+                    @APIResponse(
+                            responseCode = "404",
+                            description = "SongId or OwnerId not found",
+                            content = {
+                                    @Content(
+                                            mediaType = MediaType.TEXT_PLAIN,
+                                            schema = @Schema(implementation = String.class)
+                                    )
+                            }
+                    )
+            }
+    )
+    public Response isSongOwned(String songId, @HeaderParam("ownerId") String ownerId){
+        PlaylistService playlistService = new PlaylistServiceImpl();
+        boolean result = false;
+        try {
+            result = playlistService.isSongOwned(songId, ownerId);
+        } catch (NotFoundException e) {
+            return Response
+                    .status(Response.Status.NOT_FOUND)
+                    .type(MediaType.TEXT_PLAIN)
+                    .entity("SongId or OwnerId not found")
+                    .build();
+        }
+        return Response
+                .status(Response.Status.OK)
+                .type(MediaType.TEXT_PLAIN)
+                .entity(result)
+                .build();
+    }
+
 }

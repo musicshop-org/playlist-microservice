@@ -5,6 +5,7 @@ import fhv.musicshop.domain.Artist;
 import fhv.musicshop.domain.Playlist;
 import fhv.musicshop.domain.Song;
 
+import javax.ws.rs.NotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,4 +48,17 @@ public class PlaylistServiceImpl implements PlaylistService{
         return Playlist.findByOwnerId(ownerId);
     }
 
+    @Override
+    public boolean isSongOwned(String songId, String ownerId) {
+        Optional<Playlist> playlist = Playlist.findByOwnerId(ownerId);
+        if (playlist.isEmpty()){
+            throw new NotFoundException();
+        }
+        Optional<Song> song = Song.find("id",Long.parseLong(songId)).firstResultOptional();
+        if (song.isEmpty()){
+            throw new NotFoundException();
+        }
+
+        return playlist.get().getSongs().contains(song.get());
+    }
 }
