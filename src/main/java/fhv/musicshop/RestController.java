@@ -99,6 +99,9 @@ public class RestController extends Application {
     )
     public Response addSongsToPlaylist(List<Song> songs, @HeaderParam("ownerId") String ownerId){
         PlaylistService playlistService = new PlaylistServiceImpl();
+        for (Song song:songs) {
+            System.out.println(song.getTitle());
+        }
         playlistService.addSongsToPlaylist(ownerId, songs);
         return Response
                 .status(Response.Status.OK)
