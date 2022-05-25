@@ -3,8 +3,9 @@ package fhv.musicshop.domain;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
+
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 import javax.persistence.*;
@@ -14,14 +15,14 @@ import javax.persistence.*;
 public class Song extends PanacheEntityBase {
 
     @Id
-    private long id;
+    private long longId;
     private String genre;
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Artist> artists;
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Album> inAlbum;
     private String title;
-    private LocalDate releaseDate;
+    private String releaseDate;
 
     private BigDecimal price;
     private int stock;
@@ -31,7 +32,7 @@ public class Song extends PanacheEntityBase {
     public Song() {
     }
 
-    public Song(String title, LocalDate releaseDate, String genre, List<Artist> artists, Set<Album> inAlbum) {
+    public Song(String title, String releaseDate, String genre, List<Artist> artists, Set<Album> inAlbum) {
         this.genre = genre;
         this.artists = artists;
         this.title = title;
@@ -58,7 +59,7 @@ public class Song extends PanacheEntityBase {
         return title;
     }
 
-    public LocalDate getReleaseDate() {
+    public String getReleaseDate() {
         return releaseDate;
     }
 
@@ -74,7 +75,20 @@ public class Song extends PanacheEntityBase {
         return mediumType;
     }
 
-    public long getId() {
-        return id;
+    public long getLongId() {
+        return longId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Song song = (Song) o;
+        return longId == song.longId && stock == song.stock && genre.equals(song.genre) && artists.equals(song.artists) && inAlbum.equals(song.inAlbum) && title.equals(song.title) && releaseDate.equals(song.releaseDate) && price.equals(song.price) && mediumType == song.mediumType;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(longId, genre, artists, inAlbum, title, releaseDate, price, stock, mediumType);
     }
 }

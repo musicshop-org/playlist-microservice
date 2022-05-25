@@ -7,12 +7,14 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
 @Entity
 public class Album extends PanacheEntityBase {
 
+    private long longId;
     private String title;
     private String imageUrl;
     private BigDecimal price;
@@ -21,7 +23,7 @@ public class Album extends PanacheEntityBase {
     private MediumType mediumType;
     private String releaseDate;
     @Id
-    private UUID albumId;
+    private AlbumId albumId;
     private String label;
     private int quantityToAddToCart;
 
@@ -30,7 +32,7 @@ public class Album extends PanacheEntityBase {
     public Album() {
     }
 
-    public Album(String title, String releaseDate, UUID albumId, String label) {
+    public Album(String title, String releaseDate, AlbumId albumId, String label) {
         this.label = label;
         this.albumId = albumId;
         this.title = title;
@@ -44,7 +46,7 @@ public class Album extends PanacheEntityBase {
         return label;
     }
 
-    public UUID getAlbumId() {
+    public AlbumId getAlbumId() {
         return albumId;
     }
 
@@ -74,5 +76,22 @@ public class Album extends PanacheEntityBase {
 
     public int getQuantityToAddToCart() {
         return quantityToAddToCart;
+    }
+
+    public long getLongId() {
+        return longId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Album album = (Album) o;
+        return longId == album.longId && stock == album.stock && quantityToAddToCart == album.quantityToAddToCart && title.equals(album.title) && imageUrl.equals(album.imageUrl) && price.equals(album.price) && mediumType == album.mediumType && releaseDate.equals(album.releaseDate) && albumId.equals(album.albumId) && label.equals(album.label);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(longId, title, imageUrl, price, stock, mediumType, releaseDate, albumId, label, quantityToAddToCart);
     }
 }
