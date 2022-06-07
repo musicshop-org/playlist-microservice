@@ -35,6 +35,7 @@ import java.util.Optional;
 public class RestController extends Application {
 
     @GET
+    @Path("/welcome")
     @Produces(MediaType.TEXT_PLAIN)
     public String hello() {
         return "Welcome to the playlist-microservice :)";
